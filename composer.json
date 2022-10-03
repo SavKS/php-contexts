@@ -1,6 +1,6 @@
 {
     "name": "savks/php-contexts",
-    "type": "package",
+    "type": "library",
     "license": "MIT",
     "autoload": {
         "psr-4": {
