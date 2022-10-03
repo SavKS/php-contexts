@@ -1,0 +1,13 @@
+{
+    "name": "savks/php-contexts",
+    "type": "package",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Savks\\PhpContexts\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^8.1"
+    }
+}
