@@ -2,16 +2,14 @@
 
 namespace Savks\PhpContexts;
 
-use Closure;
-
 /**
- * @template TContext of \Savks\PhpContexts\Context
+ * @template TContext of Context
  */
 abstract class Context
 {
-    public function wrap(callable $callback): void
+    public function wrap(callable $callback): mixed
     {
-        Closure::bind($callback, $this)();
+        return (fn () => $callback())();
     }
 
     /**
