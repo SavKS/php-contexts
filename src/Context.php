@@ -12,6 +12,16 @@ abstract class Context
         return (fn () => $callback())();
     }
 
+    public static function tryUseSelf(): ?static
+    {
+        return static::tryUse(static::class);
+    }
+
+    public static function useSelf(): static
+    {
+        return static::use(static::class);
+    }
+
     /**
      * @param class-string<TContext> $contextFQN
      * @return TContext|null
