@@ -26,6 +26,7 @@ abstract class Context
 
     /**
      * @param class-string<TContext> $contextFQN
+     *
      * @return TContext|null
      */
     public static function tryUse(string $contextFQN, bool $withInherited = false): ?Context
@@ -39,7 +40,7 @@ abstract class Context
 
             if ($withInherited && is_subclass_of($step['object']::class, $contextFQN)) {
                 return $step['object'];
-            } elseif ($step['object']::class === $contextFQN) {
+            } elseif ($contextFQN === $step['object']::class) {
                 return $step['object'];
             }
         }
@@ -49,6 +50,7 @@ abstract class Context
 
     /**
      * @param class-string<TContext> $contextFQN
+     *
      * @return TContext
      */
     public static function use(string $contextFQN, bool $withInherited = false): Context

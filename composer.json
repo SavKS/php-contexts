@@ -2,12 +2,12 @@
     "name": "savks/php-contexts",
     "type": "library",
     "license": "MIT",
+    "require": {
+        "php": "^8.1"
+    },
     "autoload": {
         "psr-4": {
             "Savks\\PhpContexts\\": "src/"
         }
-    },
-    "require": {
-        "php": "^8.1"
     }
 }
