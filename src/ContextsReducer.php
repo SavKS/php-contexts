@@ -6,6 +6,9 @@ use Closure;
 
 class ContextsReducer
 {
+    /**
+     * @var Context[]
+     */
     protected array $contexts;
 
     public function __construct(Context ...$context)
@@ -31,9 +34,8 @@ class ContextsReducer
     {
         $resultCallback = array_reduce(
             array_reverse($this->contexts),
-            function (Closure $callback, Context $context) {
-                return fn () => $context->wrap($callback);
-            },
+            // @phpstan-ignore-next-line
+            fn (Closure $callback, Context $context) => fn () => $context->wrap($callback),
             $callback
         );
 

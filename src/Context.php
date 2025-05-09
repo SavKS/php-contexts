@@ -2,29 +2,35 @@
 
 namespace Savks\PhpContexts;
 
-/**
- * @template TContext of Context
- */
+use Closure;
+
 abstract class Context
 {
-    public function wrap(callable $callback): mixed
+    /**
+     * @template R
+     *
+     * @param Closure():R $callback
+     *
+     * @return R
+     */
+    public function wrap(Closure $callback): mixed
     {
         return (fn () => $callback())();
     }
 
     public static function tryUseSelf(bool $withInherited = false): ?static
     {
-        // @phpstan-ignore-next-line
         return static::tryUse(static::class, $withInherited);
     }
 
     public static function useSelf(bool $withInherited = false): static
     {
-        // @phpstan-ignore-next-line
         return static::use(static::class, $withInherited);
     }
 
     /**
+     * @template TContext of Context
+     *
      * @param class-string<TContext> $contextFQN
      *
      * @return TContext|null
@@ -38,9 +44,14 @@ abstract class Context
                 continue;
             }
 
-            if ($withInherited && is_subclass_of($step['object']::class, $contextFQN)) {
+            if (
+                $withInherited
+                && is_subclass_of($step['object']::class, $contextFQN)
+            ) {
+                /** @var TContext */
                 return $step['object'];
             } elseif ($contextFQN === $step['object']::class) {
+                /** @var TContext */
                 return $step['object'];
             }
         }
@@ -49,6 +60,8 @@ abstract class Context
     }
 
     /**
+     * @template TContext of Context
+     *
      * @param class-string<TContext> $contextFQN
      *
      * @return TContext
